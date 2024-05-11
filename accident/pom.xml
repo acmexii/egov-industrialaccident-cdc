@@ -20,6 +20,7 @@
 		<spring-cloud-stream.version>Germantown.SR1</spring-cloud-stream.version>
 		<org.egovframe.rte.version>4.2.0</org.egovframe.rte.version>
 		<cucumber.version>6.8.1</cucumber.version>		
+		<spring-cloud-contract.version>2.1.1.RELEASE</spring-cloud-contract.version>		
 	</properties>
 
 	<repositories>
@@ -136,6 +137,20 @@
 			<artifactId>org.egovframe.rte.fdl.property</artifactId>
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
+
+		<!-- Client Sdie Contract dependencies  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-wiremock</artifactId>
+			<version>${spring-cloud-contract.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-stub-runner</artifactId>
+			<version>${spring-cloud-contract.version}</version>
+			<scope>test</scope>
+		</dependency>	
 	</dependencies>
 
 	<dependencyManagement>

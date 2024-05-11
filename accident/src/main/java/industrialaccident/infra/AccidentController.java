@@ -7,13 +7,23 @@ import java.util.Optional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 // @RequestMapping(value="/accidents")
 public class AccidentController {
+
+    @Value("${api.url.assessment}")
+    private String apiUrl;
 
     @Resource(name = "accidentService")
     private AccidentService accidentService;
@@ -22,6 +32,23 @@ public class AccidentController {
     public List<Accident> getAllAccidents() throws Exception {
         // Get all accidents via AccidentService
         return accidentService.getAllAccidents();
+    }
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/order/validateAssessment/{id}")
+    public ResponseEntity<String> assessmentCheck(@PathVariable(value = "id") Long id) {
+    
+        String assessmentUrl = apiUrl + "/assessments/" + id;
+    
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+    
+        ResponseEntity<String> assessmentEntity = restTemplate.exchange(assessmentUrl, HttpMethod.GET, entity, String.class);
+    
+        return assessmentEntity;
     }
 
     @GetMapping("/accidents/{id}")
