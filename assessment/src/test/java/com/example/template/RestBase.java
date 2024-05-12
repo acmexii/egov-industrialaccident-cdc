@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 
 import industrialaccident.AssessmentApplication;
-import industrialaccident.infra.AssessmentController;
+import industrialaccident.infra.SickLeaveController;
 
 
 @RunWith(SpringRunner.class)
@@ -22,11 +22,11 @@ import industrialaccident.infra.AssessmentController;
 public class RestBase {
 
     @Autowired
-    private AssessmentController assessmentController;
+    private SickLeaveController sickLeaveController;
 
     @Before
     public void setup() {
-        StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(assessmentController);
+        StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(sickLeaveController);
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
     }
 }
