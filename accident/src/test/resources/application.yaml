@@ -32,4 +32,4 @@ spring:
 
 api:
   url:
-    assessment: "http://localhost:8090"
+    sickLeave: "http://localhost:8090"

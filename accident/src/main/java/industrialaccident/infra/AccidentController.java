@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 // @RequestMapping(value="/accidents")
 public class AccidentController {
 
-    @Value("${api.url.assessment}")
+    @Value("${api.url.sickLeave}")
     private String apiUrl;
 
     @Resource(name = "accidentService")
@@ -37,18 +37,18 @@ public class AccidentController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/order/validateAssessment/{id}")
-    public ResponseEntity<String> assessmentCheck(@PathVariable(value = "id") Long id) {
+    @GetMapping("/accident/validateSickLeave/{id}")
+    public ResponseEntity<String> sickLeaveCheck(@PathVariable(value = "id") Long id) {
     
-        String assessmentUrl = apiUrl + "/assessments/" + id;
+        String sickLeaveUrl = apiUrl + "/sickLeaves/" + id;
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
     
-        ResponseEntity<String> assessmentEntity = restTemplate.exchange(assessmentUrl, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> sickLeaveEntity = restTemplate.exchange(sickLeaveUrl, HttpMethod.GET, entity, String.class);
     
-        return assessmentEntity;
+        return sickLeaveEntity;
     }
 
     @GetMapping("/accidents/{id}")

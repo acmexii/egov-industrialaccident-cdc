@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, 
                          ids = "industrialaccident:assessment:+:stubs:8090")
 @ActiveProfiles("test")                      
-public class AssessmentContractTest {
+public class SickLeaveContractTest {
 
    @Autowired
    MockMvc mockMvc;
@@ -34,7 +34,7 @@ public class AssessmentContractTest {
     public void getDelivery_stub_test() throws Exception {
 
         MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/order/validateAssessment/1").contentType(MediaType.APPLICATION_JSON))
+        .perform(MockMvcRequestBuilders.get("/accident/validateSickLeave/1").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
 
@@ -42,12 +42,12 @@ public class AssessmentContractTest {
         DocumentContext parsedJson = JsonPath.parse(responseString);
         // and:
         Assertions.assertThat(parsedJson.read("$.id", Long.class)).isGreaterThanOrEqualTo(0);
+        Assertions.assertThat(parsedJson.read("$.accessmentId", Long.class)).isGreaterThanOrEqualTo(0);
         Assertions.assertThat(parsedJson.read("$.accidentId", Long.class)).isGreaterThanOrEqualTo(0);
         Assertions.assertThat(parsedJson.read("$.businessCode", String.class)).matches("[\\S\\s]+");
         Assertions.assertThat(parsedJson.read("$.employeeId", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.assessorId", Long.class)).isGreaterThanOrEqualTo(0);
-        Assertions.assertThat(parsedJson.read("$.hospitalCode", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.doctorNote", String.class)).matches("[\\S\\s]+");
+        Assertions.assertThat(parsedJson.read("$.period", Integer.class)).isGreaterThanOrEqualTo(0);
+        Assertions.assertThat(parsedJson.read("$.status", String.class)).matches("[\\S\\s]+");
     }
 
 
